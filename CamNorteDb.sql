@@ -1,0 +1,16 @@
+CREATE DATABASE camNorte;
+
+use camNorte;
+
+CREATE TABLE touristSpot(
+    `place_id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `place_name` VARCHAR(255) NOT NULL,
+    `location` VARCHAR(255) NOT NULL,
+    `activities` VARCHAR(255) NOT NULL,
+    `description` VARCHAR(255) NOT NULL,
+    `picture` VARCHAR(255) NOT NULL,
+    `ratings` VARCHAR(255) NOT NULL DEFAULT 0,
+    `date_posted` DATE DEFAULT CURRENT_DATE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=UTF8MB4_GENERAL_CI;
+
+ALTER TABLE `touristSpot` ADD COLUMN `date_updated` DATE DEFAULT NULL;
