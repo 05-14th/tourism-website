@@ -1,6 +1,29 @@
 <?php
 require_once 'config.php';
 session_start();
+
+function generateData($sql){
+    global $conn;
+    $dataResult = mysqli_query($conn, $sql);
+    while ($placeResult = mysqli_fetch_assoc($dataResult)){
+        echo "<tr>";
+        echo "<td>" . $placeResult['place_name'] . "</td>";
+        echo "<td>" . $placeResult['location'] . "</td>";
+        echo "<td>" . $placeResult['activities'] . "</td>";
+        echo "<td>" . $placeResult['description'] . "</td>";
+        echo "<td><img src='uploads/". $placeResult['picture'] ."' alt='tourist spot' class='standard_size'></td>";
+        echo "<td>" . $placeResult['ratings'] . "</td>";
+        echo "<td>" . $placeResult['date_posted'] . "</td>";
+        echo "<td>" . $placeResult['date_updated'] . "</td>";
+        echo "<td>";
+        echo "<button type='button' data-id='" . $placeResult['place_id'] ."' class='btn btn-success tweak-button' onclick=''>Print</button><br>";
+        echo "<button type='button' data-id='" . $placeResult['place_id'] ."' class='btn btn-warning tweak-button' onclick='editModal(this)'>Edit</button><br>";
+        echo "<button type='button' data-id='" . $placeResult['place_id'] ."' class='btn btn-danger tweak-button' onclick='deleteModal(this)'>Delete</button><br>";
+        echo "</td>";
+        echo "</tr>";
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -8,8 +31,8 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Musna Sa CamNorte</title>
-    >
+    <title>Musna sa CamNorte</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body{
             margin: 5px;
@@ -23,17 +46,28 @@ session_start();
             width: 150px;
             height: 150px; 
         }
+
+        .search-form{
+            display: flex;
+            justify-content: center;
+        }
+
+        .tweak-button{
+            width: 10vw;
+            margin: 5px;
+        }
     </style>
 </head>
 <body>
-    <button class="btn btn-primary">Back</button>
-    <form action="" method="post">
-        <h2>Tourist Attration Control</h2>
-        <div class="form-group">
-            <input placeholder="Search for Tourist Spot" name="search-input">
-            <input type="submit" class="btn btn-primary" value="Search">    
-        </div>
-    </form>
+    <div class="search-form">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <h2 style="text-align: center;">Tourist Attration Control</h2>
+            <div class="form-group">
+                <input style="width: 30vw; height: 6vh;" placeholder="Search for Tourist Spot" name="search-input"><br>
+                <input style="width: 6vw; height: 6vh;" type="submit" class="btn btn-primary" name="search-button" value="Search">    
+            </div>
+        </form>
+    </div>
     <button type="button" data-id="" class="btn btn-success" onclick="addModal()">Add Tourist Site</button>
     <div class="table-responsive">
         <table class="table table-bordered">
@@ -52,26 +86,23 @@ session_start();
             </thead>
             <tbody>
                 <?php
-                    $sql = "SELECT * FROM touristSpot";       
-                       
-                    $dataResult = mysqli_query($conn, $sql);
-                    while ($placeResult = mysqli_fetch_assoc($dataResult)){
-                        echo "<tr>";
-                        echo "<td>" . $placeResult['place_name'] . "</td>";
-                        echo "<td>" . $placeResult['location'] . "</td>";
-                        echo "<td>" . $placeResult['activities'] . "</td>";
-                        echo "<td>" . $placeResult['description'] . "</td>";
-                        echo "<td><img src='uploads/". $placeResult['picture'] ."' alt='tourist spot' class='standard_size'></td>";
-                        echo "<td>" . $placeResult['ratings'] . "</td>";
-                        echo "<td>" . $placeResult['date_posted'] . "</td>";
-                        echo "<td>" . $placeResult['date_updated'] . "</td>";
-                        echo "<td>";
-                        echo "<button type='button' data-id='" . $placeResult['place_id'] ."' class='btn btn-success' onclick=''>Print</button>";
-                        echo "<button type='button' data-id='" . $placeResult['place_id'] ."' class='btn btn-warning' onclick='editModal(this)'>Edit</button>";
-                        echo "<button type='button' data-id='" . $placeResult['place_id'] ."' class='btn btn-danger' onclick='deleteModal(this)'>Delete</button>";
-                        echo "</td>";
-                        echo "</tr>";
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["search-button"])) {
+                    if(strlen(trim($_POST['search-input'])) === 0) {
+                        // Retrieve and sanitize the SQL query from the form
+                        $sql_query = "SELECT * FROM touristSpot";  
+                        generateData($sql_query);
+                    }elseif(isset($_POST['search-input'])){
+                        $search_result = $_POST['search-input'];
+                        $sql_query = "SELECT * FROM touristSpot WHERE place_name='$search_result'";  
+                        generateData($sql_query);
+                    }else {
+                        $sql_query = "SELECT * FROM touristSpot";  
+                        generateData($sql_query);    
                     }
+                }else {
+                    $sql_query = "SELECT * FROM touristSpot";  
+                    generateData($sql_query);    
+                }
                 ?>
             </tbody>
         </table>
