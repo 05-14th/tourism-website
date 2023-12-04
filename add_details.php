@@ -35,4 +35,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['name'])){
     }
 }
 
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['fullname'])){
+    $user_fn= $_POST['fullname'];
+    $user_un= $_POST['username'];
+    $user_email = $_POST['email'];
+    $user_contact = $_POST['contact-num'];
+    $user_pass = $_POST['password'];
+    $date_creation = $_POST['date_created'];
+    $date = date('Y-m-d',strtotime($date_creation));
+    $roles = $_POST['roles'];
+
+    $insert_user = "INSERT INTO user (fullname, username, email, password, contact_number, date_created, roles) VALUES ('$user_fn', '$user_un', '$user_email', '$user_pass', '$user_contact', '$date', '$roles')";
+    if ($conn->query($insert_user) === TRUE) {
+        header("Location: user_management.php");
+    } else {
+        echo "Error: " . $insert_user . "<br>" . $conn->error;
+    }
+}
+
 ?>

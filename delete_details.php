@@ -13,4 +13,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirm'])){
     }
 }
 
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirm_user'])){
+    $userId = $_POST["id-container"];
+
+    $delete_query = "DELETE FROM user WHERE id='$userId'";
+    if ($conn->query($delete_query) === TRUE) {
+        header("Location: user_management.php");
+    } else {
+        echo "Error: " . $delete_query . "<br>" . $conn->error;
+    }
+}
+
 ?>

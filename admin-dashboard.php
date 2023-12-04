@@ -34,10 +34,10 @@
         <div class="admin-dashboard">
             <nav>
                 <h3 style="text-align:center">Musna sa CamNorte</h3>
-                <span class="btn btn-primary control-button" onclick="showTouristSite(this)" data-link="display_manager.php">Display Manager</span><br>
-                <span class="btn btn-primary control-button" onclick="showTouristSite(this)" data-link="admin_control.php">Tourist Site Monitoring</span><br>
-                <span class="btn btn-primary control-button">Page Monitoring</span><br>
-                <span class="btn btn-primary control-button">User Management</span><br>
+                <span class="btn btn-primary control-button" onclick= "togglePage(this)" data-link="display_manager.php">Display Manager</span><br>
+                <span class="btn btn-primary control-button" onclick= "togglePage(this)" data-link="admin_control.php">Tourist Site Monitoring</span><br>
+                <span class="btn btn-primary control-button" onclick= "togglePage(this)" data-link="activity_monitoring.php">Activity Monitoring</span><br>
+                <span class="btn btn-primary control-button" onclick= "togglePage(this)" data-link="user_management.php">User Management</span><br>
                 <span class="btn btn-primary control-button">Logout</span><br>
             </nav>
             <div id="touristSiteContent" class="touristSite">
@@ -48,7 +48,7 @@
         <script>
             var touristFrame = document.getElementById("touristFrame");
 
-            function showTouristSite(button) {
+            function togglePage(button) {
                 var link = button.getAttribute("data-link");
                 touristFrame.src = link;
             }

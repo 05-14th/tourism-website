@@ -49,4 +49,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id-container'])){
     }
 }
 
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['user_id'])){
+    $user_fn= $_POST['fullname'];
+    $user_un= $_POST['username'];
+    $user_email = $_POST['email'];
+    $user_contact = $_POST['contact-num'];
+    $date_creation = $_POST['date_created'];
+    $date = date('Y-m-d',strtotime($date_creation));
+    $roles = $_POST['roles'];
+
+    $update_user = "UPDATE user SET fullname='$user_fn', username='$user_un', email='$user_email', contact_number='$user_contact'";
+    if ($conn->query($update_user) === TRUE) {
+        header("Location: user_management.php");
+    } else {
+        echo "Error: " . $update_user . "<br>" . $conn->error;
+    }
+}
 ?>

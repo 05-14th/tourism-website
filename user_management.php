@@ -5,20 +5,19 @@ session_start();
 function generateData($sql){
     global $conn;
     $dataResult = mysqli_query($conn, $sql);
-    while ($placeResult = mysqli_fetch_assoc($dataResult)){
+    while ($userResult = mysqli_fetch_assoc($dataResult)){
         echo "<tr>";
-        echo "<td>" . $placeResult['place_name'] . "</td>";
-        echo "<td>" . $placeResult['location'] . "</td>";
-        echo "<td>" . $placeResult['activities'] . "</td>";
-        echo "<td>" . $placeResult['description'] . "</td>";
-        echo "<td><img src='uploads/". $placeResult['picture'] ."' alt='tourist spot' class='standard_size'></td>";
-        echo "<td>" . $placeResult['ratings'] . "</td>";
-        echo "<td>" . $placeResult['date_posted'] . "</td>";
-        echo "<td>" . $placeResult['date_updated'] . "</td>";
+        echo "<td>" . $userResult['id'] . "</td>";
+        echo "<td>" . $userResult['fullname'] . "</td>";
+        echo "<td>" . $userResult['username'] . "</td>";
+        echo "<td>" . $userResult['email'] . "</td>";
+        echo "<td>" . $userResult['contact_number'] . "</td>";
+        echo "<td>" . $userResult['date_created'] . "</td>";
+        echo "<td>" . $userResult['roles'] . "</td>";
         echo "<td>";
-        echo "<button type='button' data-id='" . $placeResult['place_id'] ."' class='btn btn-success tweak-button' onclick=''>Print</button><br>";
-        echo "<button type='button' data-id='" . $placeResult['place_id'] ."' class='btn btn-warning tweak-button' onclick='editModal(this)'>Edit</button><br>";
-        echo "<button type='button' data-id='" . $placeResult['place_id'] ."' class='btn btn-danger tweak-button' onclick='deleteModal(this)'>Delete</button><br>";
+        echo "<button type='button' data-id='" . $userResult['id'] ."' class='btn btn-success tweak-button' onclick=''>Print</button><br>";
+        echo "<button type='button' data-id='" . $userResult['id'] ."' class='btn btn-warning tweak-button' onclick='editModal(this)'>Edit</button><br>";
+        echo "<button type='button' data-id='" . $userResult['id'] ."' class='btn btn-danger tweak-button' onclick='deleteModal(this)'>Delete</button><br>";
         echo "</td>";
         echo "</tr>";
     }
@@ -63,24 +62,23 @@ function generateData($sql){
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <h2 style="text-align: center;">Tourist Attration Control</h2>
             <div class="form-group">
-                <input style="width: 30vw; height: 6vh;" placeholder="Search for Tourist Spot" name="search-input"><br>
+                <input style="width: 30vw; height: 6vh;" placeholder="Search for User" name="search-input"><br>
                 <input style="width: 6vw; height: 6vh;" type="submit" class="btn btn-primary" name="search-button" value="Search">    
             </div>
         </form>
     </div>
-    <button type="button" data-id="" class="btn btn-success" onclick="addModal()">Add Tourist Site</button>
+    <button type="button" data-id="" class="btn btn-success" onclick="addModal()">Add User</button>
     <div class="table-responsive">
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Name of Tourism Site</th>
-                    <th>Location</th>
-                    <th>Activities</th>
-                    <th>Description</th>
-                    <th>Picture</th>
-                    <th>Ratings</th>
-                    <th>Date Posted</th>
-                    <th>Date Updated</th>
+                    <th>ID</th>
+                    <th>Full Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Contact Number</th>
+                    <th>Date Created</th>
+                    <th>Roles</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -89,18 +87,18 @@ function generateData($sql){
                 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["search-button"])) {
                     if(strlen(trim($_POST['search-input'])) === 0) {
                         // Retrieve and sanitize the SQL query from the form
-                        $sql_query = "SELECT * FROM touristSpot";  
+                        $sql_query = "SELECT * FROM user";  
                         generateData($sql_query);
                     }elseif(isset($_POST['search-input'])){
                         $search_result = $_POST['search-input'];
-                        $sql_query = "SELECT * FROM touristSpot WHERE place_name='$search_result'";  
+                        $sql_query = "SELECT * FROM user WHERE fullname='$search_result' OR username='$search_result'";  
                         generateData($sql_query);
                     }else {
-                        $sql_query = "SELECT * FROM touristSpot";  
+                        $sql_query = "SELECT * FROM user";  
                         generateData($sql_query);    
                     }
                 }else {
-                    $sql_query = "SELECT * FROM touristSpot";  
+                    $sql_query = "SELECT * FROM user";  
                     generateData($sql_query);    
                 }
                 ?>
@@ -118,7 +116,7 @@ function generateData($sql){
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel">Add Tourist Site</h5>
+                    <h5 class="modal-title" id="addModalLabel">Add User</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true" onclick="closeModal()">&times;</span>
                     </button>
@@ -126,39 +124,39 @@ function generateData($sql){
                 <div class="modal-body">
                     <form method="post" action="add_details.php" enctype="multipart/form-data">
                         <div class="form-group">
-                            <label for="name">Name of Tourist Spot: </label>
-                            <input id= "name" class="form-control" name="name" required>
+                            <label for="fullname">Full Name:</label>
+                            <input id= "fullname" class="form-control" name="fullname" required>
                         </div>
                         <div class="form-group">
-                            <label for="location">Location: </label>
-                            <input id= "location" class="form-control" name="location" required>
+                            <label for="username">Username: </label>
+                            <input id= "username" class="form-control" name="username" required>
                         </div>
                         <div class="form-group">
-                            <label for="activities">Activities: </label>
-                            <input id= "activities" class="form-control" name="activities" required>
+                            <label for="email">Email: </label>
+                            <input id= "email" class="form-control" name="email" required>
                         </div>
                         <div class="form-group">
-                            <label for="description">Description: </label>
-                            <select id="_description" name="description" required>
+                            <label for="contact-num">Contact Number: </label>
+                            <input id= "contact-num" class="form-control" name="contact-num">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password: </label>
+                            <input id= "password" class="form-control" name="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="date-created">Date: </label>
+                            <input id= "date-created" class="form-control" value="<?php echo date("F j, Y"); ?>" name="date_created" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="roles">Roles: </label>
+                            <select id="roles" name="roles" required>
                                 <option value="Default" disabled>Select Description</option>
-                                <option value="Nature Tourism">Nature Tourism</option>
-                                <option value="Sand and Beach">Sand and Beach</option>
-                                <option value="Man Made Tourism">Man Made Tourinsm</option>
-                                <option value="Farm Tourism">Farm Tourism</option>
-                                <option value="Cultural Tourism">Cultural Tourism</option>
-                                <option value="Faith Tourism">Faith Tourism</option>
+                                <option value="Admin">Admin</option>
+                                <option value="User">User</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="picture">Picture: </label>
-                            <input type="file" id= "picture" name="picture" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="date_posted">Date: </label>
-                            <input id= "date_posted" class="form-control" value="<?php echo date("F j, Y"); ?>" name="date" readonly>
-                        </div>
-                        <input type="submit" class="btn btn-success" name="add_site" value="Post">
-                        <button type="button" class="btn btn-danger" name="cancel_add" onclick="closeModal()">Cancel</button>
+                        <input type="submit" class="btn btn-success" name="add_user" value="Add">
+                        <button type="button" class="btn btn-danger" name="cancel_user" onclick="closeModal()">Cancel</button>
                     </form>
                 </div>
             </div>
@@ -166,7 +164,7 @@ function generateData($sql){
     </div>
 
     <!-- Modal for editing -->
-    <div class="modal" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal scroll" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -176,7 +174,7 @@ function generateData($sql){
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" id="destinationDetailsContent">
+                    <form method="post" id="userDetailsContent">
                        
                     </form>
                 </div>
@@ -198,7 +196,7 @@ function generateData($sql){
                     <form method="post"action="delete_details.php">
                         <input type="hidden" name="id-container" id="id-container">
                         <h5>This action will cause this data to be permanently deleted. Are you sure you want to proceed?</h5>
-                        <input type="submit" value="Confirm" class="btn btn-danger" name="confirm">
+                        <input type="submit" value="Confirm" class="btn btn-danger" name="confirm_user">
                         <button type="button" class="btn btn-success" onclick="closeModal()">Cancel</button>
                     </form>
                 </div>
@@ -234,19 +232,19 @@ function generateData($sql){
         }
 
         function sendEditRequest(button) {
-                var placeId = button.getAttribute('data-id'); // Get the place ID from data-id attribute
+                var userId = button.getAttribute('data-id'); // Get the place ID from data-id attribute
 
                 // AJAX request to send data to PHP
                 $.ajax({
                     type: 'POST',
-                    url: 'edit_details.php', // Replace with your PHP file to retrieve place details
-                    data: { place_id: placeId }, // Replace 'your_place_id' with the actual place ID
+                    url: 'user_edit.php', // Replace with your PHP file to retrieve place details
+                    data: { user_id: userId }, // Replace 'your_place_id' with the actual place ID
                     success: function(response) {
                         // Inject the retrieved form content into the modal body
-                        $('#destinationDetailsContent').html(response);
+                        $('#userDetailsContent').html(response);
                     },
                     error: function() {
-                        alert('Error occurred while fetching place details.');
+                        alert('Error occurred while fetching user details.');
                     }
                 });
             }
