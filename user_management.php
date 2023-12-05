@@ -60,7 +60,7 @@ function generateData($sql){
 <body>
     <div class="search-form">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <h2 style="text-align: center;">Tourist Attration Control</h2>
+            <h2 style="text-align: center;">User Management Control</h2>
             <div class="form-group">
                 <input style="width: 30vw; height: 6vh;" placeholder="Search for User" name="search-input"><br>
                 <input style="width: 6vw; height: 6vh;" type="submit" class="btn btn-primary" name="search-button" value="Search">    

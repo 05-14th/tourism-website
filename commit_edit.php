@@ -2,6 +2,9 @@
 require_once 'config.php';
 session_start();
 
+
+
+
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id-container'])){
     if ($_FILES['picture']['error'] === UPLOAD_ERR_OK) {
         $id = $_POST['id-container'];
@@ -49,20 +52,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id-container'])){
     }
 }
 
-if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['user_id'])){
-    $user_fn= $_POST['fullname'];
-    $user_un= $_POST['username'];
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['user_id'])) {
+    // Get form data
+    $user_id = $_POST['user_id'];
+    $user_fn = $_POST['fullname'];
+    $user_un = $_POST['username'];
     $user_email = $_POST['email'];
     $user_contact = $_POST['contact-num'];
     $date_creation = $_POST['date_created'];
-    $date = date('Y-m-d',strtotime($date_creation));
+    $date = date('Y-m-d', strtotime($date_creation));
     $roles = $_POST['roles'];
 
-    $update_user = "UPDATE user SET fullname='$user_fn', username='$user_un', email='$user_email', contact_number='$user_contact'";
-    if ($conn->query($update_user) === TRUE) {
+    // Update user data in the database
+    $update_query = "UPDATE user SET fullname='$user_fn', username='$user_un', email='$user_email', contact_number='$user_contact', date_created='$date', roles='$roles' WHERE id='$user_id'";
+
+    if (mysqli_query($conn, $update_query)) {
+        // Redirect to a success page or any other page after successful update
         header("Location: user_management.php");
+        exit(); // Stop further execution
     } else {
-        echo "Error: " . $update_user . "<br>" . $conn->error;
+        echo "Error updating record: " . mysqli_error($conn);
     }
 }
+
+session_destroy();
 ?>
