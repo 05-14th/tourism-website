@@ -38,7 +38,7 @@
                 <span class="btn btn-primary control-button" onclick= "togglePage(this)" data-link="admin_control.php">Tourist Site Monitoring</span><br>
                 <span class="btn btn-primary control-button" onclick= "togglePage(this)" data-link="activity_monitoring.php">Activity Monitoring</span><br>
                 <span class="btn btn-primary control-button" onclick= "togglePage(this)" data-link="user_management.php">User Management</span><br>
-                <span class="btn btn-primary control-button">Logout</span><br>
+                <span class="btn btn-primary control-button" onclick= "window.location.href='logout.php'">Logout</span><br>
             </nav>
             <div id="touristSiteContent" class="touristSite">
                 <iframe src="display_manager.php" id="touristFrame" frameborder="0"></iframe>

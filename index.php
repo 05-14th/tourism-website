@@ -3,11 +3,12 @@ include 'config.php';
 session_start();
 $imageURL = "https://drive.google.com/uc?export=download&id=16Jtgp8XkDApFHc1CMbXZVjpCstSITb7r";
 $logoURL = "https://drive.google.com/uc?export=download&id=1hxI83onCwtNpAfNi_D461A1YC61yS59s";
-$cnURL = "https://drive.google.com/uc?export=download&id=1RyJR-v6gCKQdb3zIOvMicKzB_-CwM78D";
+$cnURL = "https://drive.google.com/uc?export=download&id=13hwNy8r7VbrXwjoZChwRAPVZNCldZH5E";
 $cnscURL = "https://drive.google.com/uc?export=download&id=18kAW6l3d8Qd0uK4PYeaC1mbQkRKbG1s0";
 $icsURL = "https://drive.google.com/uc?export=download&id=149SBbVL1YC2qJgzZaUsNhz67SmPcdzEx";
 $bg2URL= "https://drive.google.com/uc?export=download&id=1jxo2335xC-vKseRpXy9b-riG_LX1LwTQ";
 $video = "https://drive.google.com/uc?export=download&id=1fAvw2FfaA7zy1k6vssZxH2ysa-dSYFEm";
+$bg1URL = "https://drive.google.com/uc?export=download&id=1q0VfCdaNs0337OVm08CyX52I1dEXq9ZL";
 ?>
 
 <!DOCTYPE html>
@@ -22,6 +23,8 @@ $video = "https://drive.google.com/uc?export=download&id=1fAvw2FfaA7zy1k6vssZxH2
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
+      background: url('<?php echo $imageURL?>') center center/cover no-repeat; /* Replace 'your_image.jpg' with your image URL */
+      background-attachment: fixed;
     }
 
     .parallax {
@@ -35,7 +38,6 @@ $video = "https://drive.google.com/uc?export=download&id=1fAvw2FfaA7zy1k6vssZxH2
       display: block;
       height: 100%;
       width: 100%;
-      background: url('<?php echo $imageURL?>') center center/cover no-repeat; /* Replace 'your_image.jpg' with your image URL */
     }
 
     .parallax-2 {
@@ -45,6 +47,7 @@ $video = "https://drive.google.com/uc?export=download&id=1fAvw2FfaA7zy1k6vssZxH2
       width: 100%;
       background: url('<?php echo $bg2URL?>') center center/cover no-repeat; /* Replace 'your_image.jpg' with your image URL */
       background-color: rgba(0, 0, 0, 0.1); /* Adjust the alpha (fourth) value to change the opacity */
+      background-attachment: fixed;
     }
 
     .parallax-content {
@@ -129,6 +132,9 @@ $video = "https://drive.google.com/uc?export=download&id=1fAvw2FfaA7zy1k6vssZxH2
       justify-content: center;
       align-items: center;
       height: 100vh;
+      background: url('<?php echo $bg1URL?>') center center/cover no-repeat;
+      background-attachment: fixed;
+      background-color: rgba(0, 0, 0, 0.1);
     }
 
     .map-shell{
@@ -136,6 +142,9 @@ $video = "https://drive.google.com/uc?export=download&id=1fAvw2FfaA7zy1k6vssZxH2
       margin-right: 5%;
       max-height: 75%;
       overflow: auto;
+      color: white;
+      border-radius: 15px;
+      padding: 10px;
     }
 
     .latest-container{
@@ -146,7 +155,7 @@ $video = "https://drive.google.com/uc?export=download&id=1fAvw2FfaA7zy1k6vssZxH2
 <body>
   <div class="parallax">
     <div class="parallax-inner">
-      <div class="navbar">
+    <div class="navbar">
         <ul>
           <img class="logo" src="<?php echo $logoURL?>" alt="logo">
           <?php
@@ -172,15 +181,15 @@ $video = "https://drive.google.com/uc?export=download&id=1fAvw2FfaA7zy1k6vssZxH2
           <li><a href="">Home</a></li>
         </ul>
       </div>
+    </div>
+  </div>
       <div class="parallax-content">
         <h1>Welcome to Parallax Effect</h1>
         <p>Scroll down to see the effect</p>
       </div>
-    </div>
-  </div>
-  <div style="text-align: center; padding: 3%;">
-      <h3 style="text-align: center;">In Collaboration With</h3>
-      <div>
+  <div class="parallax">
+      <div class="parallax-1">
+      <h3 style="text-align: center; color:white">In Collaboration With</h3>
         <img class="logo spaced" src="<?php echo $logoURL?>" alt="Go CamNorte Logo">
         <img class="logo spaced" src="<?php echo $cnURL?>" alt="CamNorte Logo">
         <img class="logo spaced" src="<?php echo $cnscURL?>" alt="CNSC Logo">
@@ -201,7 +210,7 @@ $video = "https://drive.google.com/uc?export=download&id=1fAvw2FfaA7zy1k6vssZxH2
     </div>
   </div>
   <div class="latest-container">
-      <h3 style="text-align: center;">Latest Events</h3>
+      <h3 style="text-align: center; color:white;">Latest Events</h3>
       <?php 
         $sql = "SELECT * FROM latest";
         $result = $conn->query($sql);
@@ -215,32 +224,47 @@ $video = "https://drive.google.com/uc?export=download&id=1fAvw2FfaA7zy1k6vssZxH2
             echo "</div>";
           }
         }else{
-          echo "No Latest Features";
+          echo "<h5 style='color:white'>No Latest Features</h5>";
         }
       ?>
   </div>
   <div>
-    <div class="map-container">
-      <div class="map-shell">
-          <h2>How to get there?</h2>
-          <h3><b>Camarines Norte</b></h3>
-          <p style="text-align: justify">
-            Camarines Norte, situated in the Bicol Region of the Philippines, offers multiple avenues for travelers to reach its scenic landscapes and cultural treasures. 
-            Visitors can opt for air travel via Naga Airport, which serves as a gateway to the region, connecting with domestic flights from Manila and other major 
-            Philippine cities. Alternatively, the province can be accessed by land through a network of roads, where bus services departing from Manila and neighboring 
-            provinces provide a convenient means of transportation. For those with private vehicles, road travel offers flexibility, showcasing well-maintained highways 
-            leading to various municipalities within Camarines Norte. Additionally, select sea vessels provide inter-island connections to specific ports, contributing to 
-            the accessibility of this province rich in natural beauty and cultural heritage. Upon arrival, a diverse array of local transportation options awaits, including 
-            tricycles, jeepneys, and buses, facilitating convenient exploration of Camarines Norte's distinct municipalities and attractions.
-          </p>
+    <div class="parallax">
+      <div class="map-container" >
+        <div class="overlay">
+          <h2 style="text-align:center; color:white;">How to get there?</h2>
+          <div class="content">
+            <div class="map-shell">
+              <h3><b>Camarines Norte</b></h3>
+              <p style="text-align: justify">
+                Camarines Norte, situated in the Bicol Region of the Philippines, offers multiple avenues for travelers to reach its scenic landscapes and cultural treasures. 
+                Visitors can opt for air travel via Naga Airport, which serves as a gateway to the region, connecting with domestic flights from Manila and other major 
+                Philippine cities. Alternatively, the province can be accessed by land through a network of roads, where bus services departing from Manila and neighboring 
+                provinces provide a convenient means of transportation. For those with private vehicles, road travel offers flexibility, showcasing well-maintained highways 
+                leading to various municipalities within Camarines Norte. Additionally, select sea vessels provide inter-island connections to specific ports, contributing to 
+                the accessibility of this province rich in natural beauty and cultural heritage. Upon arrival, a diverse array of local transportation options awaits, including 
+                tricycles, jeepneys, and buses, facilitating convenient exploration of Camarines Norte's distinct municipalities and attractions.
+              </p>
+            </div>
+            <div id="map" class="map"></div>
+          </div>
+        </div>
       </div>
-      <div id="map" class="map"></div>
     </div>
+  </div>
+  <div class="parallax">
+
   </div>
   
   <div style="height: auto;"></div> <!-- To create scroll -->
   
   <script>
+    window.addEventListener('scroll', function() {
+          const parallax = document.querySelector('.parallax');
+          let scrollPosition = window.pageYOffset;
+          parallax.style.transform = 'translateY(' + scrollPosition * 0.5 + 'px)';
+        });
+
     var map = new ol.Map({
             target: 'map',
             layers: [

@@ -31,7 +31,9 @@ CREATE TABLE comments(
     `content` VARCHAR(500) DEFAULT NULL,
     `date` DATE DEFAULT CURRENT_DATE,
     `id` INT(11),
-	 FOREIGN KEY (id) REFERENCES user(id)
+	FOREIGN KEY (id) REFERENCES user(id),
+    `place_id` INT(11),
+    FOREIGN KEY (place_id) REFERENCES touristSpot(place_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=UTF8MB4_GENERAL_CI;
 
 ALTER TABLE `comments` ADD COLUMN `ranking` INT(1) DEFAULT 0;

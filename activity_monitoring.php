@@ -36,6 +36,7 @@ session_start();
                     <th>Ranking</th>
                     <th>Date</th>
                     <th>Commenter</th>
+                    <th>Target</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,6 +52,7 @@ session_start();
                         echo "<td>" . $commentResult['ranking'] . "</td>";
                         echo "<td>" . $commentResult['date'] . "</td>";
                         echo "<td>" . $commentResult['id'] . "</td>";
+                        echo "<td>" . $commentResult["place_id"] . "</td>";
                         echo "</tr>";
                     }
                 ?>
