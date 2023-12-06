@@ -39,7 +39,7 @@ include "config.php";
       <input type="password" name="password" class="form-control" placeholder="Password" required><br>
       <input class="btn btn-primary btn-block" type="submit" value="Login">
       <h6 style="text-align:center">OR</h6>
-      <button class="btn btn-primary btn-block">Sign Up</button>
+      <button class="btn btn-primary btn-block" type="button" onclick="window.location.href='signup.php'">Sign Up</button>
     </form>
   </div>
 </body>
