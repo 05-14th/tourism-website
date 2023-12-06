@@ -102,6 +102,16 @@ $video = "https://drive.google.com/uc?export=download&id=1fAvw2FfaA7zy1k6vssZxH2
       padding-right: 5%;
       text-align: center;
     }
+
+    .img{
+      border-radius: 100%;
+      width: 5vh;
+      height: 5vh;
+    }
+
+    h1,p{
+      font-size: 80%;
+    }
   </style>
 </head>
 <body>
@@ -110,7 +120,22 @@ $video = "https://drive.google.com/uc?export=download&id=1fAvw2FfaA7zy1k6vssZxH2
       <div class="navbar">
         <ul>
           <img class="logo" src="<?php echo $logoURL?>" alt="logo">
-          <li><a href="">Login</a></li>
+          <?php
+          if(isset($_SESSION["userId"])){
+            $userId = $_SESSION["userId"];
+
+            $sqlquery = "SELECT * FROM user WHERE id ='$userId'";
+            $confirm_result = $conn->query($sqlquery);
+            if($confirm_result->num_rows > 0){
+              $row = $confirm_result->fetch_assoc();
+              echo "<li><a href=''>". $row['username']. "</a></li>";
+            } else{
+              echo "<li><a href='signin.php'>Login</a></li>";
+            }
+          } else{
+            echo "<li><a href='signin.php'>Login</a></li>";
+          }
+          ?>
           <li><a href="">About Us</a></li>
           <li><a href="">Tourism Business</a></li>
           <li><a href="">Delicacies</a></li>

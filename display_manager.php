@@ -42,6 +42,7 @@ session_start();
             <input id="video" type="file" name="video" accept="video/*">
         </div>
         <input type="submit" class="btn btn-primary" value="Save Changes"><br>
+        <button type="button" class="btn btn-primary" onclick="window.location.href='index.php'">View</button>
     </form>
 </body>
 </html>
