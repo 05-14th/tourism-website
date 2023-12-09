@@ -15,7 +15,7 @@ $bg1URL = "https://drive.google.com/uc?export=download&id=1q0VfCdaNs0337OVm08CyX
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Parallax Effect with Navigation Bar</title>
+  <title>Musna sa CamNorte | Home</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v8.2.0/ol.css">
   <script src="https://cdn.jsdelivr.net/npm/ol@v8.2.0/dist/ol.js"></script>
   <style>
@@ -177,15 +177,15 @@ $bg1URL = "https://drive.google.com/uc?export=download&id=1q0VfCdaNs0337OVm08CyX
           <li><a href="">About Us</a></li>
           <li><a href="">Tourism Business</a></li>
           <li><a href="">Delicacies</a></li>
-          <li><a href="">Destinations</a></li>
+          <li><a href="destinations.php">Destinations</a></li>
           <li><a href="">Home</a></li>
         </ul>
       </div>
     </div>
   </div>
       <div class="parallax-content">
-        <h1>Welcome to Parallax Effect</h1>
-        <p>Scroll down to see the effect</p>
+        <h1>Welcome to Musna sa CamNorte</h1>
+        <p>A place for a golden vacation.</p>
       </div>
   <div class="parallax">
       <div class="parallax-1">
