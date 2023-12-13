@@ -60,6 +60,23 @@ $bg1URL = "https://drive.google.com/uc?export=download&id=1q0VfCdaNs0337OVm08CyX
       font-size: 3em;
     }
 
+    .parallax-content h1{
+      /* Adding a shadow with a blur effect */
+      color: aliceblue;
+      font-size: 150%;
+      /* Simulating text-stroke with text-shadow */
+      text-shadow: -1px -1px 0 #000;
+      font-family: serif;
+    }
+
+    .parallax-content p{
+      /* Adding a shadow with a blur effect */
+      font-style: italic;
+      color: gold;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      font-family: sans-serif;
+    }
+
     .overlay {
       position: relative;
       background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha (fourth) value to change the opacity */
@@ -150,6 +167,15 @@ $bg1URL = "https://drive.google.com/uc?export=download&id=1q0VfCdaNs0337OVm08CyX
     .latest-container{
       height: 50vh;
     }
+
+    h2, h3{
+      font-family: serif;
+      color: aliceblue;
+    }
+
+    p{
+      font-family: sans-serif;
+    }
   </style>
 </head>
 <body>
@@ -176,7 +202,7 @@ $bg1URL = "https://drive.google.com/uc?export=download&id=1q0VfCdaNs0337OVm08CyX
           ?>
           <li><a href="">About Us</a></li>
           <li><a href="">Tourism Business</a></li>
-          <li><a href="">Delicacies</a></li>
+          <li><a href="delicacy.php">Delicacies</a></li>
           <li><a href="destinations.php">Destinations</a></li>
           <li><a href="">Home</a></li>
         </ul>
@@ -184,7 +210,7 @@ $bg1URL = "https://drive.google.com/uc?export=download&id=1q0VfCdaNs0337OVm08CyX
     </div>
   </div>
       <div class="parallax-content">
-        <h1>Welcome to Musna sa CamNorte</h1>
+        <h1>Musna sa CamNorte!</h1>
         <p>A place for a golden vacation.</p>
       </div>
   <div class="parallax">

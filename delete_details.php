@@ -24,4 +24,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirm_user'])){
     }
 }
 
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirm_delicacy'])){
+    $userId = $_POST["id-delicacy"];
+
+    $delete_query = "DELETE FROM delicacy WHERE delicacy_id='$userId'";
+    if ($conn->query($delete_query) === TRUE) {
+        header("Location: delicacy_monitoring.php");
+    } else {
+        echo "Error: " . $delete_query . "<br>" . $conn->error;
+    }
+}
 ?>

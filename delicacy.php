@@ -205,8 +205,8 @@ $bg1URL = "https://drive.google.com/uc?export=download&id=1q0VfCdaNs0337OVm08CyX
                         ?>
                     <li><a href="">About Us</a></li>
                     <li><a href="">Tourism Business</a></li>
-                    <li><a href="delicacy.php">Delicacies</a></li>
-                    <li><a href="">Destinations</a></li>
+                    <li><a href="">Delicacies</a></li>
+                    <li><a href="destinations.php">Destinations</a></li>
                     <li><a href="index.php">Home</a></li>
                 </ul>
             </div>
@@ -221,29 +221,27 @@ $bg1URL = "https://drive.google.com/uc?export=download&id=1q0VfCdaNs0337OVm08CyX
       </form>
     </div>
     <div class="centralize">
-        <h2 style="text-align:center; color: black;">Destinations in Camarines Norte</h2>
+        <h2 style="text-align:center; color: black;">Delicious Delicacies</h2>
         <center>
     <?php 
-        $tourist_select = "SELECT * FROM touristSpot ORDER BY ratings DESC";
+        $tourist_select = "SELECT * FROM delicacy ORDER BY ratings DESC";
         $result = $conn->query($tourist_select);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo "<div class='destination-content'>";
                 echo "<center>";
                 echo "<div class='bruh-container'>";
-                echo "<img src='uploads/" . $row['picture'] . "' alt='" . $row['place_name'] . "'>";
+                echo "<img src='uploads/" . $row['image'] . "' alt='" . $row['delicacy_name'] . "'>";
                 echo "<div style='text-align: left; width: 100%;'>";
-                echo "<h3 style='text-align: center'>" . $row['place_name'] . "</h3>";
-                echo "<p>This place is located at " . $row['location'] . " where you can do activities like " . $row['activities'] . ". <b>Check it out!</b></p>";
-                echo "<h4 style='text-align: center'>Category: " . $row['description'] . "</h4>";
-                echo "<h5>Date Posted: " . $row['date_posted'] . "</h5>";
+                echo "<h3 style='text-align: center'>" . $row['delicacy_name'] . "</h3>";
+                echo "<p>" . $row['description'] . " <b>Check it out!</b></p>";
                 echo "<h5>Ratings: " . $row['ratings'] . "</h5>";
                 echo "</div>";
                 echo "</div>";
                 echo "<form action='submit_rating.php' method='post'>";
                 echo "<p>Please rate this item:</p>";
                 echo "<div class='rating'>";
-                echo "<input type='hidden' name='place_id' value='".$row['place_id']."'>";
+                echo "<input type='hidden' name='place_id' value='".$row['delicacy_id']."'>";
                 echo "<textarea class='form-control' name='comment' rows='4' cols='50' placeholder='Put your comment here...'></textarea>";
                 echo "<input type='radio' id='star5' name='rating' value='5'>";
                 echo "<label for='star5'>5 stars</label>";

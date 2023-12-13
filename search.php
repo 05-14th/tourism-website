@@ -1,3 +1,4 @@
+
 <?php
 include 'config.php';
 session_start();
@@ -98,13 +99,15 @@ $bg1URL = "https://drive.google.com/uc?export=download&id=1q0VfCdaNs0337OVm08CyX
 
     a:hover{
       background-color: black;
+      text-decoration: none;
     }
 
-    .navbar ul li a {
+    a{
       color: white;
       text-decoration: none;
       padding: 10px 20px;
       border-radius: 15px;
+      text-decoration: none;
     }
 
     .logo{
@@ -158,8 +161,7 @@ $bg1URL = "https://drive.google.com/uc?export=download&id=1q0VfCdaNs0337OVm08CyX
     }
 
     .bruh-container img{
-      width: 90%;
-      max-width: 90%;
+      width: 100%;
     }
 
     h2, h3{
@@ -184,47 +186,23 @@ $bg1URL = "https://drive.google.com/uc?export=download&id=1q0VfCdaNs0337OVm08CyX
 <body>
   <div class="parallax">
         <div class="parallax-inner">
-            <div class="navbar">
+            <div>
                 <ul>
-                    <img class="logo" src="<?php echo $logoURL?>" alt="logo">
-                    <?php
-                    if(isset($_SESSION["userId"])){
-                        $userId = $_SESSION["userId"];
-
-                        $sqlquery = "SELECT * FROM user WHERE id ='$userId'";
-                        $confirm_result = $conn->query($sqlquery);
-                        if($confirm_result->num_rows > 0){
-                        $row = $confirm_result->fetch_assoc();
-                        echo "<li><a href=''>". $row['username']. "</a></li>";
-                        } else{
-                        echo "<li><a href='signin.php'>Login</a></li>";
-                        }
-                    } else{
-                        echo "<li><a href='signin.php'>Login</a></li>";
-                    }
-                        ?>
-                    <li><a href="">About Us</a></li>
-                    <li><a href="">Tourism Business</a></li>
-                    <li><a href="delicacy.php">Delicacies</a></li>
-                    <li><a href="">Destinations</a></li>
-                    <li><a href="index.php">Home</a></li>
+                    <li><a href="destinations.php">Back</a></li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="parallax-content">
-      <form action="search.php" method="post">
-        <div class="form-group horizontal">
-          <input type="search" name="search">
-          <input type="submit" value="Search">
-        </div>
-      </form>
+        <h1 style="font-size: 150%">Search Result</h1>
     </div>
     <div class="centralize">
         <h2 style="text-align:center; color: black;">Destinations in Camarines Norte</h2>
         <center>
     <?php 
-        $tourist_select = "SELECT * FROM touristSpot ORDER BY ratings DESC";
+    if(isset($_POST["search"])){
+        $search = $_POST["search"];
+        $tourist_select = "SELECT * FROM touristSpot WHERE place_name LIKE '%".$search."%' OR location LIKE'%".$search."%'";
         $result = $conn->query($tourist_select);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
@@ -237,14 +215,11 @@ $bg1URL = "https://drive.google.com/uc?export=download&id=1q0VfCdaNs0337OVm08CyX
                 echo "<p>This place is located at " . $row['location'] . " where you can do activities like " . $row['activities'] . ". <b>Check it out!</b></p>";
                 echo "<h4 style='text-align: center'>Category: " . $row['description'] . "</h4>";
                 echo "<h5>Date Posted: " . $row['date_posted'] . "</h5>";
-                echo "<h5>Ratings: " . $row['ratings'] . "</h5>";
                 echo "</div>";
                 echo "</div>";
                 echo "<form action='submit_rating.php' method='post'>";
                 echo "<p>Please rate this item:</p>";
                 echo "<div class='rating'>";
-                echo "<input type='hidden' name='place_id' value='".$row['place_id']."'>";
-                echo "<textarea class='form-control' name='comment' rows='4' cols='50' placeholder='Put your comment here...'></textarea>";
                 echo "<input type='radio' id='star5' name='rating' value='5'>";
                 echo "<label for='star5'>5 stars</label>";
                 echo "<input type='radio' id='star4' name='rating' value='4'>";
@@ -262,8 +237,9 @@ $bg1URL = "https://drive.google.com/uc?export=download&id=1q0VfCdaNs0337OVm08CyX
                 echo "</div><br>";
             }
         } else {
-            echo "0 results";
+            echo "$search not found";
         }
+    }
          ?>
         </center>
     </div>
