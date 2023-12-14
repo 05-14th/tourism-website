@@ -208,6 +208,7 @@ $bg1URL = "https://drive.google.com/uc?export=download&id=1q0VfCdaNs0337OVm08CyX
             echo "<li><a href='signin.php'>Login</a></li>";
           }
           ?>
+          <li><a href="">About Us</a></li>
           <li><a href="tourism_business.php">Tourism Business</a></li>
           <li><a href="delicacy.php">Delicacies</a></li>
           <li><a href="destinations.php">Destinations</a></li>
@@ -221,45 +222,6 @@ $bg1URL = "https://drive.google.com/uc?export=download&id=1q0VfCdaNs0337OVm08CyX
         <p>A place for a golden vacation.</p>
       </div>
   <div class="parallax">
-      <div class="parallax-1">
-      <h3 style="text-align: center; color:white">In Collaboration With</h3>
-        <img class="logo spaced" src="<?php echo $logoURL?>" alt="Go CamNorte Logo">
-        <img class="logo spaced" src="<?php echo $cnURL?>" alt="CamNorte Logo">
-        <img class="logo spaced" src="<?php echo $cnscURL?>" alt="CNSC Logo">
-        <img class="logo spaced" src="<?php echo $icsURL?>" alt="ICS Logo">
-      </div>
-  </div>
-  <div class="parallax">
-    <div class="parallax-2">
-      <div class="overlay">
-        <div class="content">
-          <video width="80%" height="80%" autoplay loop controls>
-            <source src="<?php echo $video?>" type="video/mp4">
-            <!-- Add other video sources (e.g., WebM, Ogg) for better browser compatibility -->
-            Your browser does not support the video tag.
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="latest-container">
-      <h3 style="text-align: center; color:white;">Latest Events</h3>
-      <?php 
-        $sql = "SELECT * FROM latest";
-        $result = $conn->query($sql);
-        if($result->num_rows >0){
-          while($row = $result->fetch_assoc()){
-            echo "<div class='features'>";
-            echo "<img src='".$row['image']."' alt='Feature Photo'>";
-            echo "<h4>". $row['title']. "</h4>";
-            echo "<p>". $row['description']. "</p>";
-            echo "<h6>". $row['date']. "</h6>";
-            echo "</div>";
-          }
-        }else{
-          echo "<h5 style='color:white'>No Latest Features</h5>";
-        }
-      ?>
   </div>
   <div>
     <div class="parallax">

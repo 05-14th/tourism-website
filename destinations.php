@@ -17,7 +17,7 @@ $bg1URL = "https://drive.google.com/uc?export=download&id=1q0VfCdaNs0337OVm08CyX
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>Document</title>
+    <title>Musna sa CamNorte | Destination</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v8.2.0/ol.css">
     <style>
     body {
@@ -203,7 +203,6 @@ $bg1URL = "https://drive.google.com/uc?export=download&id=1q0VfCdaNs0337OVm08CyX
                         echo "<li><a href='signin.php'>Login</a></li>";
                     }
                         ?>
-                    <li><a href="">About Us</a></li>
                     <li><a href="">Tourism Business</a></li>
                     <li><a href="delicacy.php">Delicacies</a></li>
                     <li><a href="">Destinations</a></li>

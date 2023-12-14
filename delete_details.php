@@ -29,7 +29,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirm_delicacy'])){
 
     $delete_query = "DELETE FROM delicacy WHERE delicacy_id='$userId'";
     if ($conn->query($delete_query) === TRUE) {
-        header("Location: delicacy_monitoring.php");
+        header("Location: business_monitoring.php");
+    } else {
+        echo "Error: " . $delete_query . "<br>" . $conn->error;
+    }
+}
+
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirm_business'])){
+    $userId = $_POST["id-accredited_businesses"];
+
+    $delete_query = "DELETE FROM accredited_businesses WHERE business_id='$userId'";
+    if ($conn->query($delete_query) === TRUE) {
+        header("Location: business_monitoring.php");
     } else {
         echo "Error: " . $delete_query . "<br>" . $conn->error;
     }

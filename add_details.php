@@ -26,7 +26,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['name'])){
         $dateString = $_POST['date'];
         $date = date('Y-m-d',strtotime($dateString));
         
-        $insert_query = "INSERT INTO touristSpot (place_name, location, activities, description, picture, date_posted) VALUES ('$name',' $location','$activities', '$description', '$escapedFileName', '$date')";
+        $insert_query = "INSERT INTO touristSpot (place_name, location, activities, description, picture, date_posted) VALUES ('$name','$location','$activities', '$description', '$escapedFileName', '$date')";
         if ($conn->query($insert_query) === TRUE) {
             header("Location: admin_control.php");
         } else {
@@ -53,4 +53,63 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['fullname'])){
     }
 }
 
+
+
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_business'])){
+    if ($_FILES['picture']['error'] === UPLOAD_ERR_OK) {
+        $name = $_POST['name'];
+        $location = $_POST['location'];
+        $description = $_POST['description'];
+        $fileName = $_FILES['picture']['name'];
+        $fileTmpName = $_FILES['picture']['tmp_name'];
+    
+        // Read file content
+        $fileContent = file_get_contents($fileTmpName);
+        $uploadDirectory = "uploads/"; // Directory to store uploaded files
+
+        // Move uploaded file to the upload directory
+        $destination = $uploadDirectory . $fileName;
+        move_uploaded_file($fileTmpName, $destination);
+    
+        // Escape special characters to prevent SQL injection
+        $escapedFileName = $conn->real_escape_string($fileName);
+        $escapedFileContent = $conn->real_escape_string($fileContent);
+        
+        $insert_query = "INSERT INTO accredited_businesses (business_name, image, description, location) VALUES ('$name', '$escapedFileName', '$description',  '$location')";
+        if ($conn->query($insert_query) === TRUE) {
+            header("Location: business_monitoring.php");
+        } else {
+            echo "Error: " . $insert_query . "<br>" . $conn->error;
+        }
+    }
+}
+
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_latest'])){
+    if ($_FILES['picture']['error'] === UPLOAD_ERR_OK) {
+        $name = $_POST['name'];
+        $date = $_POST['location'];
+        $description = $_POST['description'];
+        $fileName = $_FILES['picture']['name'];
+        $fileTmpName = $_FILES['picture']['tmp_name'];
+    
+        // Read file content
+        $fileContent = file_get_contents($fileTmpName);
+        $uploadDirectory = "uploads/"; // Directory to store uploaded files
+
+        // Move uploaded file to the upload directory
+        $destination = $uploadDirectory . $fileName;
+        move_uploaded_file($fileTmpName, $destination);
+    
+        // Escape special characters to prevent SQL injection
+        $escapedFileName = $conn->real_escape_string($fileName);
+        $escapedFileContent = $conn->real_escape_string($fileContent);
+        
+        $insert_query = "INSERT INTO latest (title, image, description, date) VALUES ('$name', '$escapedFileName', '$description',  '$date')";
+        if ($conn->query($insert_query) === TRUE) {
+            header("Location: latest.php");
+        } else {
+            echo "Error: " . $insert_query . "<br>" . $conn->error;
+        }
+    }
+}
 ?>

@@ -7,14 +7,14 @@ function generateData($sql){
     $dataResult = mysqli_query($conn, $sql);
     while ($placeResult = mysqli_fetch_assoc($dataResult)){
         echo "<tr>";
-        echo "<td>" . $placeResult['delicacy_name'] . "</td>";
-        echo "<td><img src='uploads/". $placeResult['image'] ."' alt='tourist spot' class='standard_size'></td>";
+        echo "<td>" . $placeResult['title'] . "</td>";
+        echo "<td><img src='uploads/".$placeResult['image']."' alt='latest' class='standard_size'></td>";
         echo "<td>" . $placeResult['description'] . "</td>";
-        echo "<td>" . $placeResult['ratings'] . "</td>";
+        echo "<td>" . $placeResult["date"] . "</td>";
         echo "<td>";
-        echo "<button type='button' data-id='" . $placeResult['delicacy_id'] ."' class='btn btn-success tweak-button' onclick=''>Print</button><br>";
-        echo "<button type='button' data-id='" . $placeResult['delicacy_id'] ."' class='btn btn-warning tweak-button' onclick='editModal(this)'>Edit</button><br>";
-        echo "<button type='button' data-id='" . $placeResult['delicacy_id'] ."' class='btn btn-danger tweak-button' onclick='deleteModal(this)'>Delete</button><br>";
+        echo "<button type='button' data-id='" . $placeResult['latest_id'] ."' class='btn btn-success tweak-button' onclick=''>Print</button><br>";
+        echo "<button type='button' data-id='" . $placeResult['latest_id'] ."' class='btn btn-warning tweak-button' onclick='editModal(this)'>Edit</button><br>";
+        echo "<button type='button' data-id='" . $placeResult['latest_id'] ."' class='btn btn-danger tweak-button' onclick='deleteModal(this)'>Delete</button><br>";
         echo "</td>";
         echo "</tr>";
     }
@@ -27,7 +27,7 @@ function generateData($sql){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Musna sa CamNorte | Delicacy</title>
+    <title>Musna sa CamNorte</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body{
@@ -57,22 +57,22 @@ function generateData($sql){
 <body>
     <div class="search-form">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <h2 style="text-align: center;">Delicacy Control</h2>
+            <h2 style="text-align: center;">Latest Events Control</h2>
             <div class="form-group">
-                <input style="width: 30vw; height: 6vh;" placeholder="Search for Delicacy" name="search-input"><br>
+                <input style="width: 30vw; height: 6vh;" placeholder="Search for Businesses" name="search-input"><br>
                 <input style="width: 6vw; height: 6vh;" type="submit" class="btn btn-primary" name="search-button" value="Search">    
             </div>
         </form>
     </div>
-    <button type="button" data-id="" class="btn btn-success" onclick="addModal()">Add Delicacy</button>
+    <button type="button" data-id="" class="btn btn-success" onclick="addModal()">Add Events</button>
     <div class="table-responsive">
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Name of Delicacy</th>
-                    <th>Picture</th>
+                    <th>Title</th>
+                    <th>Image</th>
                     <th>Description</th>
-                    <th>Ratings</th>
+                    <th>Date</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -81,18 +81,18 @@ function generateData($sql){
                 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["search-button"])) {
                     if(strlen(trim($_POST['search-input'])) === 0) {
                         // Retrieve and sanitize the SQL query from the form
-                        $sql_query = "SELECT * FROM delicacy";  
+                        $sql_query = "SELECT * FROM latest";  
                         generateData($sql_query);
                     }elseif(isset($_POST['search-input'])){
                         $search_result = $_POST['search-input'];
-                        $sql_query = "SELECT * FROM delicacy WHERE delicacy_name='$search_result'";  
+                        $sql_query = "SELECT * FROM latest WHERE title='$search_result'";  
                         generateData($sql_query);
                     }else {
-                        $sql_query = "SELECT * FROM delicacy";  
+                        $sql_query = "SELECT * FROM latest";  
                         generateData($sql_query);    
                     }
                 }else {
-                    $sql_query = "SELECT * FROM delicacy";  
+                    $sql_query = "SELECT * FROM latest";  
                     generateData($sql_query);    
                 }
                 ?>
@@ -110,26 +110,30 @@ function generateData($sql){
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel">Add Delicacy</h5>
+                    <h5 class="modal-title" id="addModalLabel">Add Business</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true" onclick="closeModal()">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="add_delicacy.php" enctype="multipart/form-data">
+                    <form method="post" action="add_details.php" enctype="multipart/form-data">
                         <div class="form-group">
-                            <label for="name">Name of Delicacy: </label>
+                            <label for="name">Title: </label>
                             <input id= "name" class="form-control" name="name" required>
                         </div>
                         <div class="form-group">
-                            <label for="location">Description: </label>
+                            <label for="description">Description: </label>
+                            <input id= "description" class="form-control" name="description" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Date: </label>
                             <input id= "location" class="form-control" name="location" required>
                         </div>
                         <div class="form-group">
                             <label for="picture">Picture: </label>
                             <input type="file" id= "picture" name="picture" required>
                         </div>
-                        <input type="submit" class="btn btn-success" name="add_site" value="Post">
+                        <input type="submit" class="btn btn-success" name="add_latest" value="Post">
                         <button type="button" class="btn btn-danger" name="cancel_add" onclick="closeModal()">Cancel</button>
                     </form>
                 </div>
@@ -161,16 +165,16 @@ function generateData($sql){
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Delete Delicacy</h5>
+                    <h5 class="modal-title" id="deleteModalLabel">Delete Business</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true" onclick="closeModal()">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form method="post"action="delete_details.php">
-                        <input type="hidden" name="id-delicacy" id="id-delicacy">
+                        <input type="hidden" name="id-latest" id="id-latest">
                         <h5>This action will cause this data to be permanently deleted. Are you sure you want to proceed?</h5>
-                        <input type="submit" value="Confirm" class="btn btn-danger" name="confirm_delicacy">
+                        <input type="submit" value="Confirm" class="btn btn-danger" name="confirm_business">
                         <button type="button" class="btn btn-success" onclick="closeModal()">Cancel</button>
                     </form>
                 </div>
@@ -195,7 +199,7 @@ function generateData($sql){
 
         function deleteModal(button){
             var placeId = button.getAttribute('data-id');
-            document.getElementById('id-delicacy').value = placeId;
+            document.getElementById('id-latest').value = placeId;
             delete_modal.style.display = "block";
         }
 
@@ -206,13 +210,13 @@ function generateData($sql){
         }
 
         function sendEditRequest(button) {
-                var delicacyId = button.getAttribute('data-id'); // Get the place ID from data-id attribute
+                var businessId = button.getAttribute('data-id'); // Get the place ID from data-id attribute
 
                 // AJAX request to send data to PHP
                 $.ajax({
                     type: 'POST',
-                    url: 'edit_delicacy.php', // Replace with your PHP file to retrieve place details
-                    data: { delicacy_id: delicacyId }, // Replace 'your_place_id' with the actual place ID
+                    url: 'edit_latest.php', // Replace with your PHP file to retrieve place details
+                    data: { business_id: businessId }, // Replace 'your_place_id' with the actual place ID
                     success: function(response) {
                         // Inject the retrieved form content into the modal body
                         $('#destinationDetailsContent').html(response);

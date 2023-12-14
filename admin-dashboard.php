@@ -34,14 +34,16 @@
         <div class="admin-dashboard">
             <nav>
                 <h3 style="text-align:center">Musna sa CamNorte</h3>
-                <span class="btn btn-primary control-button" onclick= "togglePage(this)" data-link="delicacy_monitoring.php">Delicacy Manager</span><br>
+                <span class="btn btn-primary control-button" onclick= "togglePage(this)" data-link="latest.php">Latest Event Monitoring</span><br>
+                <span class="btn btn-primary control-button" onclick= "togglePage(this)" data-link="delicacy_monitoring.php">Delicacy Monitoring</span><br>
+                <span class="btn btn-primary control-button" onclick= "togglePage(this)" data-link="business_monitoring.php">Business Monitoring</span><br>
                 <span class="btn btn-primary control-button" onclick= "togglePage(this)" data-link="admin_control.php">Tourist Site Monitoring</span><br>
                 <span class="btn btn-primary control-button" onclick= "togglePage(this)" data-link="activity_monitoring.php">Activity Monitoring</span><br>
                 <span class="btn btn-primary control-button" onclick= "togglePage(this)" data-link="user_management.php">User Management</span><br>
                 <span class="btn btn-primary control-button" onclick= "window.location.href='logout.php'">Logout</span><br>
             </nav>
             <div id="touristSiteContent" class="touristSite">
-                <iframe src="delicacy_monitoring.php" id="touristFrame" frameborder="0"></iframe>
+                <iframe src="latest.php" id="touristFrame" frameborder="0"></iframe>
             </div>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

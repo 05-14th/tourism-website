@@ -1,0 +1,34 @@
+
+ /* Style for the floating bot icon */
+  .floating-icon {
+    position: fixed;
+    bottom: 20px; /* Adjust the distance from the bottom */
+    right: 20px; /* Adjust the distance from the right */
+    z-index: 9999; /* Ensure it's above other elements */
+  }
+  
+  /* Style for the clickable circle */
+  .circle {
+    width: 60px; /* Adjust the circle size */
+    height: 60px; /* Adjust the circle size */
+    background-color: green;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow effect */
+    text-decoration: none; /* Remove underline for anchor tag */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  
+    /* Style for the bot icon */
+    .fas {
+      font-size: 30px; /* Adjust the icon size */
+      color: white; /* Adjust the icon color */
+    }
+  }
+  
+  /* Hover effect for the circle */
+  .circle:hover {
+    background-color: darkgreen; /* Change background color on hover */
+  }
+  
